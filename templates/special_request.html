@@ -1,0 +1,12 @@
+{% include "header.html" %}
+<div>
+<h1>Ummm, Give us request brooo!</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{form}}
+
+    <button type="submit">Submit</button>
+<form>
+</div>
+{% include "footer.html" %}

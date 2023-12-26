@@ -1,0 +1,85 @@
+{% include "header.html" %}
+
+
+
+
+<div id="introCarousel" class="carousel slide carousel-fade shadow-2-strong" data-mdb-ride="carousel">
+    
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white text-center">
+              <h1 class="mb-3">You are in <b>Our Custom Section</b></h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<br>
+
+<div class="container">
+    <div class="row text-center">
+        {% csrf_token %}
+        <form action="" method="post">
+        {{form}}
+        </form>
+
+        {% comment %} <input type="text" class="form-control form-control-lg" placeholder="Aaj kya mood hai khane ka!😒"> {% endcomment %}
+
+        {% comment %} <div>
+            <button onclick="myalert()" class="order">
+                Send a request
+            </button>
+            
+              <script>
+                  function myalert() {
+                      alert("Your Request Has been sent to our chefs.\n" +
+                          "We will contact you" + "soon, stick to your phone!");
+                  }
+              </script>
+            
+        </div>  {% endcomment %}
+
+
+    </div>
+</div>
+<div>
+    <br>
+</div>
+
+<footer class="w-100 py-4 flex-shrink-0 fixed-bottom" style="background-color: rgba(0, 0, 0, 0.8)">
+    <div class="container py-4">
+        <div class="row gy-4 gx-5">
+            <div class="col-lg-4 col-md-6">
+                <h5 class="h1 text-white">DK☁️Kitchen</h5>
+                <p class="small text-muted">We at dakaarlo aims to provide best quality food,on time to our customers. We believe in taste, health and customer satisfaction. We dare you to order now!!😈</p>
+                <p class="small text-muted mb-0">&copy; Copyrights. All rights reserved. <a class="text-primary" href="#">Dakaarlo.com</a></p>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <h5 class="text-white mb-3">Quick links</h5>
+                <ul class="list-unstyled text-muted">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Cart</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <h5 class="text-white mb-3">Latest Updates On Offers</h5>
+                <p class="small text-muted">Subscribe us!!, for upadates on latest offers.</p>
+                <form action="#">
+                    <div class="input-group mb-3">
+                        <input class="form-control" type="text" placeholder="Enter Mail here!!" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-primary" id="button-addon2" type="button"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
