@@ -20,6 +20,8 @@ urlpatterns = [
     path('about/', views.about, name="about"),
     path('cuscare/', views.customercare, name="customercare"),
     path('cart/', views.cart, name="cart"),
+    path('member/', views.memberships, name="memberships"),
+    path('offer/', views.offers, name="offers"),
 ]
 
 if settings.DEBUG:

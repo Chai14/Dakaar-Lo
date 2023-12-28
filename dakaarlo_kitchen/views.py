@@ -92,5 +92,11 @@ def customercare(request):
 def cart(request):
     return render(request, "cart.html")
 
+def memberships(request):
+    return render(request, "memberships.html")
+
+def offers(request):
+    return render(request, "offers.html")
+
 
 
