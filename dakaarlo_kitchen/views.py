@@ -83,5 +83,14 @@ def custom(request):
     form = CustomSection() 
     return render(request, 'special_request.html', {'form': form})
 
+def about(request):
+    return render(request, "about.html")
+
+def customercare(request):
+    return render(request, "customercare.html")
+
+def cart(request):
+    return render(request, "cart.html")
+
 
 

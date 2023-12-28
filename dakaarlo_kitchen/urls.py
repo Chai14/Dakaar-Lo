@@ -17,6 +17,9 @@ urlpatterns = [
     path('custom/', views.custom, name="custom"),
     path('signup/', views.signup, name="signup"),
     path('custom2/', views.custom, name="custom"),
+    path('about/', views.about, name="about"),
+    path('cuscare/', views.customercare, name="customercare"),
+    path('cart/', views.cart, name="cart"),
 ]
 
 if settings.DEBUG:

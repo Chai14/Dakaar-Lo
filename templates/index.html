@@ -20,7 +20,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
       <div class="container-fluid">
-        <a class="navbar-brand nav-link" target="_blank" href="{% url 'menu' %}">
+        <a class="navbar-brand nav-link" href="{% url 'menu' %}">
           <strong>ORDER NOW!</strong>
         </a>
         <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
@@ -36,13 +36,13 @@
               <a class="nav-link" href="/menu">Menu</a>
             </li> 
             <li class="nav-item">
-              <a class="nav-link" href="" target="_blank">About Us</a>
+              <a class="nav-link" href="/about">About Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="" target="_blank">CustomerCare</a>
+              <a class="nav-link" href="/cuscare">CustomerCare</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="" target="_blank">Cart</a>
+              <a class="nav-link" href="/cart">Cart</a>
             </li>
           </ul>
           <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
@@ -106,37 +106,6 @@
           </div>
         </div>
       </div>
-
-
-      {% comment %} <div class="carousel-item">
-        <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">
-          <div class="d-flex justify-content-center align-items-center h-100">
-            <div class="text-white text-center">
-              <h2>Displayed here</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="carousel-item">
-        <div class="mask" style="
-              background: linear-gradient(
-                45deg,
-                rgba(29, 236, 197, 0.7),
-                rgba(91, 14, 214, 0.7) 100%
-              );
-            ">
-          <div class="d-flex justify-content-center align-items-center h-100">
-            <div class="text-white text-center">
-              <h2>And cover it with any mask</h2>
-              <a class="btn btn-outline-light btn-lg m-2"
-                href="https://mdbootstrap.com/docs/standard/content-styles/masks/" target="_blank" role="button">Learn
-                about masks</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> {% endcomment %}
 
     <a class="carousel-control-prev" href="#introCarousel" role="button" data-mdb-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
