@@ -1,9 +1,11 @@
 from django.http import HttpResponse,HttpResponseRedirect
-from django.shortcuts import render
-from Services.models import Chinese,Italian,Indian_Street,North,South,Guj, Custom
+from django.shortcuts import render, redirect
+from Services.models import Chinese,Italian,Indian_Street,North,South,Guj, Custom, Registration
 from django.contrib.auth.models import User
 from django.contrib import messages
-from Services.forms import CustomSection
+from Services.forms import CustomSection, LoginPage
+from django.contrib.auth import authenticate, login
+
 
 def homepage(request):
     return render(request, "index.html")
@@ -59,16 +61,24 @@ def custom(request):
 
 def signup(request):
     if request.method == "POST":
-        username = request.POST['username']
-        email = request.POST['email']
+        form = LoginPage(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
 
-        myuser = User.objects.create_user(username, email)
-        myuser.name = username
-        myuser.save()
+            user = authenticate(request, username=username, password=password)
 
-        messages.success(request, "Lets start cooking for you!😈")
+            if user is not None:
+                login(request, user)
+                return redirect('menu.html')
+            else:
+                messages.error(request, "Try Again")
 
-    return render(request, "signup.html")
+
+    else:
+        form = LoginPage()
+
+    return render(request, "signup.html", {'form': form})
 
 def custom(request):
     if request.method == 'POST':
@@ -98,5 +108,28 @@ def memberships(request):
 def offers(request):
     return render(request, "offers.html")
 
+def register(request):
+    return render(request, "register.html")
 
+def registration(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        address = request.POST['address']
 
+        if password1 == password2:
+            myuser = User.objects.create_user(username, email, password1)
+            myuser.save()
+
+        else:
+            messages.error(request, "Password not entered same!")
+        
+        messages.success(request, "Account Created!")
+
+        return redirect('signup.html')
+    
+    return render(request, "register.html")
+        

@@ -46,3 +46,15 @@ class Custom(models.Model):
     demo = models.CharField(max_length=500, null=False, blank=False)
     email = models.EmailField(max_length=50, null=False, blank=False)
 
+class User(models.Model):
+    username = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=255)
+
+class Registration(models.Model):
+    username = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=255)
+    phone = models.IntegerField(max_length=10)
+    address = models.CharField(max_length=255)
+

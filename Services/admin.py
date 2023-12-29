@@ -1,5 +1,5 @@
 from django.contrib import admin
-from Services.models import Chinese, Italian, Indian_Street, North, South,Guj
+from Services.models import Chinese, Italian, Indian_Street, North, South,Guj, Registration
 from .models import Custom
 
 class ChineseAdmin(admin.ModelAdmin):
@@ -33,3 +33,8 @@ class GujAdmin(admin.ModelAdmin):
 admin.site.register(Custom)
 
 admin.site.register(Guj,GujAdmin)
+
+class Myusers(admin.ModelAdmin):
+    list_display=('username','email','phone')
+
+admin.site.register(Registration,Myusers)

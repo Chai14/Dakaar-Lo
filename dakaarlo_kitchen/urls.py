@@ -22,6 +22,7 @@ urlpatterns = [
     path('cart/', views.cart, name="cart"),
     path('member/', views.memberships, name="memberships"),
     path('offer/', views.offers, name="offers"),
+    path('register/', views.register, name="register"),
 ]
 
 if settings.DEBUG:
