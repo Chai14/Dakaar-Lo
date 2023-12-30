@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from dakaarlo_kitchen import views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -23,6 +23,8 @@ urlpatterns = [
     path('member/', views.memberships, name="memberships"),
     path('offer/', views.offers, name="offers"),
     path('register/', views.register, name="register"),
+    path('demo/', views.demo, name="demo"),
+    # path('', include('dakaarlo_kitchen.urls'))
 ]
 
 if settings.DEBUG:

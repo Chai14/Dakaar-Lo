@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from Services.models import Chinese,Italian,Indian_Street,North,South,Guj, Custom, Registration
 from django.contrib.auth.models import User
 from django.contrib import messages
-from Services.forms import CustomSection, LoginPage
+from Services.forms import CustomSection
 from django.contrib.auth import authenticate, login
 
 
@@ -71,7 +71,6 @@ def signup(request):
             return redirect(request, 'menu.html')
         else:
             messages.error(request, "Try Again")
-            # return redirect('none')
 
     return render(request, "signup.html")
 
@@ -105,6 +104,9 @@ def offers(request):
 
 def register(request):
     return render(request, "register.html")
+
+def demo(request):
+    return render(request, "demo.html")
 
 def registration(request):
     if request.method == 'POST':
@@ -146,7 +148,7 @@ def registration(request):
         
         messages.success(request, "Account Created!")
 
-        return redirect('signup')
+        return render(request, "signup.html")
     
     return render(request, "register.html")
         
