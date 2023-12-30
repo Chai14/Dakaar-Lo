@@ -55,6 +55,7 @@ class Registration(models.Model):
     username = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
-    phone = models.IntegerField(max_length=10)
+    password2 = models.CharField(max_length=255)
+    phone = models.IntegerField()
     address = models.CharField(max_length=255)
 

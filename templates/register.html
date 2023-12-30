@@ -7,53 +7,49 @@
 
           <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"> Bilkul Sahi decision aapka! </p>
 
-          <form class="mx-1 mx-md-4" action="/signup/" method="post">
-        {% csrf_token %}
+          <form class="mx-1 mx-md-4" action="/signup" method="post">
+
+          {% csrf_token %}
+
             <div class="mb-4">
-              <i class="fas fa-user fa-lg me-3 fa-fw"></i>
               <div class="form-outline">
-                <input type="text" id="form3Example1c" class="form-control" name="username" />
-                <label class="form-label" for="form3Example1c">User Name</label>
+                <input type="text" id="username" class="form-control" name="username" placeholder="Create a username (only letters and numbers)" Required>
+                <label class="form-label" for="username">User Name</label>
               </div>
             </div>
 
             <div class="mb-4">
-              <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
               <div class="form-outline">
-                <input type="text" id="form3Example3c" class="form-control" />
-                <label class="form-label" for="form3Example3c">Password</label>
+                <input type="password" id="password1" class="form-control" name="password1" placeholder="Create your password" Required>
+                <label class="form-label" for="password1">Password</label>
               </div>
             </div>
 
             <div class="mb-4">
-                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                 <div class="form-outline">
-                  <input id="form3Example3c" class="form-control"  />
-                  <label class="form-label" for="form3Example3c">Re-enter password</label>
+                  <input type="password" id="password2" class="form-control" name="password2" placeholder="Confirm your password" Required>
+                  <label class="form-label" for="password2">Confirm Password</label>
                 </div>
             </div>
 
             <div class="mb-4">
-                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                 <div class="form-outline">
-                  <input id="form3Example3c" class="form-control" name="email" />
-                  <label class="form-label" for="form3Example3c">Phone Number</label>
+                  <input type="email" id="email" class="form-control" name="email" placeholder="Enter your email" Required>
+                  <label class="form-label" for="email">Email</label>
                 </div>
             </div>
 
             <div class="mb-4">
-                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                 <div class="form-outline">
-                  <input id="form3Example3c" class="form-control"/>
-                  <label class="form-label" for="form3Example3c">Email</label>
+                  <input type="number" id="phone" class="form-control" name="phone" placeholder="Enter your phone number" Required>
+                  <label class="form-label" for="phone">Phone Number</label>
                 </div>
             </div>
 
             <div class="mb-4">
-                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                 <div class="form-outline">
-                  <input id="form3Example3c" class="form-control" />
-                  <label class="form-label" for="form3Example3c">Kahan Rehte Ho?</label>
+                  <input type="text" id="address" class="form-control" name="address" placeholder="Enter you address" Required>
+                  <label class="form-label" for="address">Address</label>
                 </div>
             </div>
 

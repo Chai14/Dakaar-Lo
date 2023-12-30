@@ -61,24 +61,19 @@ def custom(request):
 
 def signup(request):
     if request.method == "POST":
-        form = LoginPage(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
+        username = request.POST['username']
+        password1 = request.POST['password1']
 
-            user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username, password1=password1)
 
-            if user is not None:
-                login(request, user)
-                return redirect('menu.html')
-            else:
-                messages.error(request, "Try Again")
+        if user is not None:
+            login(request, user)
+            return redirect(request, 'menu.html')
+        else:
+            messages.error(request, "Try Again")
+            # return redirect('none')
 
-
-    else:
-        form = LoginPage()
-
-    return render(request, "signup.html", {'form': form})
+    return render(request, "signup.html")
 
 def custom(request):
     if request.method == 'POST':
@@ -120,16 +115,38 @@ def registration(request):
         phone = request.POST['phone']
         address = request.POST['address']
 
-        if password1 == password2:
-            myuser = User.objects.create_user(username, email, password1)
-            myuser.save()
+        if User.objects.filter(username=username):
+            messages.error(request, "Username already exist! Please try some other username.")
+            return redirect('home')
+        
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email Already Registered!!")
+            return redirect('home')
+        
+        if len(username)>20:
+            messages.error(request, "Username must be under 20 charcters!!")
+            return redirect('home')
+        
+        if password1 != password2:
+            messages.error(request, "Passwords didn't matched!!")
+            return redirect('home')
+        
+        if not username.isalnum():
+            messages.error(request, "Username must be Alpha-Numeric!!")
+            return redirect('home')
 
-        else:
-            messages.error(request, "Password not entered same!")
+
+
+        myuser = User.objects.create_user(username, email, password1)
+        myuser.username = username
+        myuser.is_active = False
+        myuser.save()
+        messages.success(request, "Your Account has been created succesfully!! Please check your email to confirm your email address in order to activate your account.")
+        
         
         messages.success(request, "Account Created!")
 
-        return redirect('signup.html')
+        return redirect('signup')
     
     return render(request, "register.html")
         
