@@ -7,9 +7,11 @@
 
           <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"> Bilkul Sahi decision aapka! </p>
 
-          <form class="mx-1 mx-md-4" action="/signup/" method="post">
+          <form class="mx-1 mx-md-4" action='{% url "signup" %}' method="POST">
 
           {% csrf_token %}
+
+          {% include "alert.html" %}
 
             <div class="mb-4">
               <div class="form-outline">
@@ -56,7 +58,6 @@
             <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
               <button type="submit" class="btn btn-primary btn-lg">Lets cook</button>
             </div>
-
             <br>
             <br>
 

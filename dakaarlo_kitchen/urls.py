@@ -15,15 +15,16 @@ urlpatterns = [
     path('south/', views.southindian, name="south"),
     path('gujraj/', views.gujraj, name="gujraj"),
     path('custom/', views.custom, name="custom"),
-    path('signup/', views.signup, name="signup"),
+    # path('signup/', views.signup, name="signup"),
     path('custom2/', views.custom, name="custom"),
     path('about/', views.about, name="about"),
     path('cuscare/', views.customercare, name="customercare"),
     path('cart/', views.cart, name="cart"),
     path('member/', views.memberships, name="memberships"),
     path('offer/', views.offers, name="offers"),
-    path('register/', views.registration, name="register"),
     path('demo/', views.demo, name="demo"),
+    path('user/', include('userauths.urls')),
+
 ]
 
 if settings.DEBUG:

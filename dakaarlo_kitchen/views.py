@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from Services.models import Chinese, Italian, Indian_Street, North,South, Guj, Custom, Registration
+from Services.models import Chinese, Italian, Indian_Street, North,South, Guj, Custom
 from django.contrib.auth.models import User
 from django.contrib import messages
 from Services.forms import CustomSection
@@ -59,20 +59,21 @@ def gujraj(request):
 def custom(request):
     return render(request, "custom.html")
 
-def signup(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password1 = request.POST['password1']
+# def signup(request):
+#     if request.method == "POST":
+#         username = request.POST['username']
+#         password1 = request.POST['password1']
 
-        user = authenticate(request, username=username, password1=password1)
+#         user = authenticate(request, username=username, password1=password1)
 
-        if user is not None:
-            login(request, user)
-            return redirect(request, 'menu.html')
-        else:
-            messages.error(request, "Try Again")
+#         if user is not None:
+#             login(request, user)
+#             return render(request, 'menu.html',{"username":username})
+#         else:
+#             messages.error(request, "Try Again")
+#             return redirect('home')
 
-    return render(request, "signup.html")
+#     return render(request, "signup.html")
 
 def custom(request):
     if request.method == 'POST':
@@ -108,46 +109,46 @@ def offers(request):
 def demo(request):
     return render(request, "demo.html")
 
-def registration(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
-        email = request.POST['email']
-        phone = request.POST['phone']
-        address = request.POST['address']
+# def registration(request):
+#     if request.method == 'POST':
+#         username = request.POST['username']
+#         password1 = request.POST['password1']
+#         password2 = request.POST['password2']
+#         email = request.POST['email']
+#         phone = request.POST['phone']
+#         address = request.POST['address']
 
-        if User.objects.filter(username=username):
-            messages.error(request, "Username already exist! Please try some other username.")
-            return redirect('home')
+#         if User.objects.filter(username=username).exists():
+#             messages.error(request, "Username already exist! Please try some other username.")
+#             return redirect('home')
         
-        if User.objects.filter(email=email).exists():
-            messages.error(request, "Email Already Registered!!")
-            return redirect('home')
+#         if User.objects.filter(email=email).exists():
+#             messages.error(request, "Email Already Registered!!")
+#             return redirect('home')
         
-        if len(username)>20:
-            messages.error(request, "Username must be under 20 charcters!!")
-            return redirect('home')
+#         if len(username)>20:
+#             messages.error(request, "Username must be under 20 charcters!!")
+#             return redirect('home')
         
-        if password1 != password2:
-            messages.error(request, "Passwords didn't matched!!")
-            return redirect('home')
+#         if password1 != password2:
+#             messages.error(request, "Passwords didn't matched!!")
+#             return redirect('home')
         
-        if not username.isalnum():
-            messages.error(request, "Username must be Alpha-Numeric!!")
-            return redirect('home')
+#         if not username.isalnum():
+#             messages.error(request, "Username must be Alpha-Numeric!!")
+#             return redirect('home')
 
 
-        myuser = User.objects.create_user(username, email, password1)
-        myuser.username = username
-        myuser.is_active = False
-        myuser.save()
-        messages.success(request, "Your Account has been created succesfully!! Please check your email to confirm your email address in order to activate your account.")
+#         myuser = User.objects.create(username=username, email=email, password1=password1)
+#         myuser.username = username
+#         myuser.is_active = False
+#         myuser.save()
+#         messages.success(request, "Your Account has been created succesfully!! Please check your email to confirm your email address in order to activate your account.")
         
         
-        messages.success(request, "Account Created!")
+#         messages.success(request, "Account Created!")
 
-        return redirect('signup')
+#         return redirect('signup')
     
-    return render(request, "register.html")
+#     return render(request, "register.html")
         
