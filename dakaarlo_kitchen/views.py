@@ -1,6 +1,6 @@
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from Services.models import Chinese,Italian,Indian_Street,North,South,Guj, Custom, Registration
+from Services.models import Chinese, Italian, Indian_Street, North,South, Guj, Custom, Registration
 from django.contrib.auth.models import User
 from django.contrib import messages
 from Services.forms import CustomSection
@@ -102,8 +102,8 @@ def memberships(request):
 def offers(request):
     return render(request, "offers.html")
 
-def register(request):
-    return render(request, "register.html")
+# def register(request):
+#     return render(request, "register.html")
 
 def demo(request):
     return render(request, "demo.html")
@@ -138,7 +138,6 @@ def registration(request):
             return redirect('home')
 
 
-
         myuser = User.objects.create_user(username, email, password1)
         myuser.username = username
         myuser.is_active = False
@@ -148,7 +147,7 @@ def registration(request):
         
         messages.success(request, "Account Created!")
 
-        return render(request, "signup.html")
+        return redirect('signup')
     
     return render(request, "register.html")
         
