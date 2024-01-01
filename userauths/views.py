@@ -14,60 +14,46 @@ def registration(request):
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         address = request.POST.get('address')
-        myuser = User.objects.filter(username = username)
 
-        if myuser.exists():
-            messages.warning(request, 'User already exists')
-
-        # if User.objects.filter(username=username).exists():
-        #     messages.error(request, "Username already exist! Please try some other username.")
-        #     return redirect('register')
-        
-        # if User.objects.filter(email=email).exists():
-        #     messages.error(request, "Email Already Registered!!")
-        #     return redirect('register')
-        
-        # if len(username)>20:
-        #     messages.error(request, "Username must be under 20 charcters!!")
-        #     return redirect('register')
-        
+        # Check if the passwords match
         if password1 != password2:
-            messages.error(request, "Passwords didn't matched!!")
+            messages.error(request, "Passwords didn't match!")
             return HttpResponseRedirect(request.path_info)
-        
-        # if not username.isalnum():
-        #     messages.error(request, "Username must be Alpha-Numeric!!")
-        #     return redirect('register')
 
+        # Check if the username already exists
+        if User.objects.filter(username=username).exists():
+            messages.warning(request, 'User already exists')
+        else:
+            # Create the user and save the information
+            myuser = User.objects.create_user(username=username, email=email, password=password1)
+            myuser.phone = phone
+            myuser.address = address
+            myuser.save()
 
-        myuser = User.objects.create_user(username = username, email = email, password1 = password1)
-        # myuser.username = username
-        myuser.set_password(password1)
-        # myuser.is_active = False
-        myuser.save()
-        messages.success(request, "An email has been sent on your email!")
-        # messages.success(request, "Your Account has been created succesfully!! Please check your email to confirm your email address in order to activate your account.")
-        
-        
-        # messages.success(request, "Account Created!")
+            messages.success(request, "An email has been sent to your email!")
 
-        return HttpResponseRedirect(request.path_info)
-    
+            return HttpResponseRedirect(request.path_info)
+
     return render(request, "register.html")
 
 def signup(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password1 = request.POST['password1']
 
-        user = authenticate(request, username=username, password1=password1)
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Authenticate the user
+        user = authenticate(request, username=username, password=password)
 
         if user is not None:
+            # User credentials are valid, log in the user
             login(request, user)
-            return render(request, 'menu.html',{"username":username})
+            messages.success(request, f"Welcome, {username}!")
+            return HttpResponseRedirect('/menu/')  # Redirect to home page or any desired URL after successful login
         else:
-            messages.error(request, "Try Again")
-            return redirect('home')
+            # User credentials are not valid
+            messages.error(request, "Invalid username or password")
+            return HttpResponseRedirect(request.path_info)
 
     return render(request, "signup.html")
 
