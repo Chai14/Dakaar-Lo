@@ -1,12 +1,18 @@
 {% include "header.html" %}
-<div>
+<div class="row justify-content-center">
+    <br>
 <h1>Ummm, Give us request brooo!</h1>
-
-<form action="" method="post">
+<br>
+<div class="row justify-content-center">
+<form action="/custom/" method="post">
     {% csrf_token %}
+    <br>
+    <br>
+    <br>
     {{form}}
 
     <button type="submit">Submit</button>
 <form>
+</div>
 </div>
 {% include "footer.html" %}
