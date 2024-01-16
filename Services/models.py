@@ -51,9 +51,8 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
 
-# class Registration(models.Model):
-#     username = models.CharField(max_length=255)
-#     email = models.EmailField(unique=True)
-#     password = models.CharField(max_length=255)
-#     phone = models.IntegerField()
-#     address = models.CharField(max_length=255)
+class CartItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Chinese, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+

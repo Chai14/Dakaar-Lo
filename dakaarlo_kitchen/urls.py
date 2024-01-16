@@ -3,6 +3,7 @@ from django.urls import path, include
 from dakaarlo_kitchen import views
 from django.conf.urls.static import static
 from django.conf import settings
+from .views import add_to_cart
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,6 +23,7 @@ urlpatterns = [
     path('offer/', views.offers, name="offers"),
     path('demo/', views.demo, name="demo"),
     path('user/', include('userauths.urls')),
+    path('api/add_to_cart/<int:product_id>/', add_to_cart, name='add_to_cart'),
 
 ]
 

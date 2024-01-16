@@ -1,72 +1,46 @@
-{% include "header.html" %}
 
-      <div id="introCarousel" class="carousel slide carousel-fade shadow-2-strong" data-mdb-ride="carousel">
-    
+{% block content %}
+    {% include "header.html" %}
+
+    <div id="introCarousel" class="carousel slide carousel-fade shadow-2-strong" data-mdb-ride="carousel">
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
-              <div class="d-flex justify-content-center align-items-center h-100">
-                <div class="text-white text-center">
-                  <h1 class="mb-3">You are in <b>China</b></h1>
+            <div class="carousel-item active">
+                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-white text-center">
+                            <h1 class="mb-3">You are in <b>China</b></h1>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 
-	<br>
-	<div class="container">
-		<div class="row text-center">
+    <br>
+    <div class="container">
+        <div class="row text-center">
+            {% for product in servicedata %}
+                <div class="col-md-4">
+                    <div class="card card-body h-100 border-info">
+                        <img src="/media/{{ product.chinese_icon }}" class="img fluid">
+                        <hr>
+                        <h4>{{ product.chinese_name }}</h4>
+                        <p>{{ product.chinese_des }}</p>
+                        <p>{{ product.chinese_price }}</p>
 
-            {% for n in servicedata %}
-
-			<div class="col-md-4">
-				<div class="card card-body h-100  border-info">
-
-
-                    <img src="/media/{{n.chinese_icon}}" class="img fluid">
-					<hr>
-					<h4>{{n.chinese_name}}</h4>
-					<p>{{n.chinese_des}}</p>
-                    <p>{{n.chinese_price}}</p>
-
-          <div class="center-button">
-                    <button data-product={{product.id}} data-action="add" class="addtocart update-cart" onclick="addtocart()">
-                        <div class="pretext">
-
-                          <i class="fas fa-cart-plus"></i> ADD TO CART
+                        <div class="center-button">
+                            <button data-product="{{ product.id }}" data-action="add" class="addtocart update-cart">
+                                <div class="pretext">
+                                    <i class="fas fa-cart-plus"></i> ADD TO CART
+                                </div>
+                                <div class="pretext done">
+                                    <div class="posttext"><i class="fas fa-check"></i> ADDED</div>
+                                </div>
+                            </button>
                         </div>
-                        
-                        <div class="pretext done">
-                          <div class="posttext"><i class="fas fa-check"></i> ADDED</div>
-                        </div>
-
-
-                        <script> 
-                        const button = document.querySelector(".addtocart");
-                        const done = document.querySelector(".done");
-                        console.log(button);
-                        let added = false;
-                        button.addEventListener('click',()=>{
-                        if(added){
-                            done.style.transform = "translate(-110%) skew(-40deg)";
-                            added = false;
-                        }
-                        else{
-                            done.style.transform = "translate(0px)";
-                            added = true;
-                        }
-                            
-                        });
-
-                    </script>
-                    </button>
-                  </div>
-				</div>
-			</div>
+                    </div>
+                </div>
             {% endfor %}
-
         </div>
     </div>
     <div>
@@ -74,3 +48,58 @@
     </div>
 
     {% include "footer.html" %}
+
+    <script>
+        // Wrap the JavaScript in a function to avoid conflicts with multiple buttons
+        function initializeAddToCartButton(button) {
+          const done = button.querySelector('.done');
+          let added = false;
+      
+          button.addEventListener('click', () => {
+              if (added) {
+                  done.style.transform = "translate(-110%) skew(-40deg)";
+                  added = false;
+              } else {
+                  done.style.transform = "translate(0px)";
+                  added = true;
+              }
+      
+              // Log productId and action
+              const productId = button.getAttribute('data-product');
+              const action = button.getAttribute('data-action');
+              console.log("Product ID:", productId);
+              console.log("Action:", action);
+      
+              // Call the add to cart function passing the product ID
+              addToCart(productId, action);
+          });
+      }
+      
+
+        // Attach the click event handler to each "Add to Cart" button
+        const addToCartButtons = document.querySelectorAll(".addtocart");
+        addToCartButtons.forEach(initializeAddToCartButton);
+
+        // The add to cart function (modified to handle product ID and action)
+        function addToCart(productId, action) {
+          if (!productId || !action) {
+              console.error("Invalid product ID or action");
+              return;
+          }
+      
+          fetch(`/api/add_to_cart/${productId}/?action=${action}`)
+              .then(response => response.json())
+              .then(data => {
+                  if (data.status === 'added') {
+                      console.log(`Product ${productId} added to the cart`);
+                  } else {
+                      console.error(`Failed to add product ${productId} to the cart`);
+                  }
+              })
+              .catch(error => {
+                  console.error("Error while making the fetch request:", error);
+              });
+      }
+      
+    </script>
+{% endblock %}

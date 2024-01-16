@@ -5,6 +5,10 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from Services.forms import CustomSection
 from django.contrib.auth import authenticate, login
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from Services.models import CartItem
+
 
 
 def homepage(request):
@@ -59,22 +63,6 @@ def gujraj(request):
 def custom(request):
     return render(request, "custom.html")
 
-# def signup(request):
-#     if request.method == "POST":
-#         username = request.POST['username']
-#         password1 = request.POST['password1']
-
-#         user = authenticate(request, username=username, password1=password1)
-
-#         if user is not None:
-#             login(request, user)
-#             return render(request, 'menu.html',{"username":username})
-#         else:
-#             messages.error(request, "Try Again")
-#             return redirect('home')
-
-#     return render(request, "signup.html")
-
 def custom(request):
     if request.method == 'POST':
         form = CustomSection(request.POST)
@@ -103,52 +91,24 @@ def memberships(request):
 def offers(request):
     return render(request, "offers.html")
 
-# def register(request):
-#     return render(request, "register.html")
-
 def demo(request):
     return render(request, "demo.html")
 
-# def registration(request):
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         password1 = request.POST['password1']
-#         password2 = request.POST['password2']
-#         email = request.POST['email']
-#         phone = request.POST['phone']
-#         address = request.POST['address']
 
-#         if User.objects.filter(username=username).exists():
-#             messages.error(request, "Username already exist! Please try some other username.")
-#             return redirect('home')
-        
-#         if User.objects.filter(email=email).exists():
-#             messages.error(request, "Email Already Registered!!")
-#             return redirect('home')
-        
-#         if len(username)>20:
-#             messages.error(request, "Username must be under 20 charcters!!")
-#             return redirect('home')
-        
-#         if password1 != password2:
-#             messages.error(request, "Passwords didn't matched!!")
-#             return redirect('home')
-        
-#         if not username.isalnum():
-#             messages.error(request, "Username must be Alpha-Numeric!!")
-#             return redirect('home')
+def add_to_cart(request, product_id):
+    try:
+        product = Chinese.objects.get(id=product_id)
+        user = request.user
 
+        # Check if the item is already in the cart
+        cart_item, created = CartItem.objects.get_or_create(user=user, product=product)
 
-#         myuser = User.objects.create(username=username, email=email, password1=password1)
-#         myuser.username = username
-#         myuser.is_active = False
-#         myuser.save()
-#         messages.success(request, "Your Account has been created succesfully!! Please check your email to confirm your email address in order to activate your account.")
-        
-        
-#         messages.success(request, "Account Created!")
+        if not created:
+            # If the item is already in the cart, increment the quantity
+            cart_item.quantity += 1
+            cart_item.save()
 
-#         return redirect('signup')
-    
-#     return render(request, "register.html")
+        return JsonResponse({'status': 'added'})
+    except Chinese.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Product not found'})
         
